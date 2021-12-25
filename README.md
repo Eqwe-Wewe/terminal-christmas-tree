@@ -32,6 +32,8 @@ optional arguments:
                         Screen width. Used to center the tree. Default: 80
   -t, --terminal        Uses the terminal size to center the tree. -s and -w
                         will be ignored
+  -d, --density       	The density of Christmas tree balls in a row display at a time.
+						Max: 10. Min: 1. Default: 4
 
 Ctrl-C interrupts the Christmas :-(
 ```

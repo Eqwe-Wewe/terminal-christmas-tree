@@ -15,7 +15,7 @@ COLOR = {
     'red': '\033[91m'
 }
 STAR = '*'
-intensity_dict = {
+density_dict = {
     1: 10, 2: 9, 3: 8, 4: 7, 5: 6, 6: 5, 7: 4, 8: 3, 9: 2, 10: 1
 }
 
@@ -51,11 +51,11 @@ def tree(height=13, screen_width=80):
     return [line.center(screen_width) for line in (*star, *body, trunk)]
 
 
-def balls(tree, intensity):
+def balls(tree, density):
     for idx, _ in enumerate(tree[:-3], 2):
         tree[idx] = random_change_char(
             tree[idx],
-            len(tree[idx])//intensity_dict[intensity])
+            len(tree[idx])//density_dict[density])
     return tree
 
 
@@ -97,10 +97,10 @@ def cli():
         )
     )
     parser.add_argument(
-        '-i', '--intensity', default=4, type=int,
+        '-d', '--density', default=4, type=int,
         help=(
-            'The number of Christmas tree balls in a row displayed at a time.'
-            ' Max: 10. Min: 1. Default: 4'
+            'The density of Christmas tree balls in a row display at a time. '
+	    'Max: 10. Min: 1. Default: 4'
         )
     )
     args = parser.parse_args()
@@ -108,18 +108,18 @@ def cli():
     if args.terminal:
         screen_width, height = os.get_terminal_size()
         height -= 2
-        intensity = args.intensity
+        density = args.density
     else:
         height = args.size
         screen_width = args.width
-        intensity = args.intensity
+        density = args.density
     while True:
         try:
             time.sleep(random.uniform(.1, 1))
             os.system('cls' if os.name == 'nt' else 'clear')
             print('\n'.join(
                 colored_stars_balls(
-                    balls(tree(height, screen_width), intensity)
+                    balls(tree(height, screen_width), density)
                     )
                 )
             )
